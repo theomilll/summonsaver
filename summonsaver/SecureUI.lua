@@ -5,8 +5,8 @@ local SummonSaver = SummonSaver
 local SecureUI = SummonSaver.SecureUI
 
 SecureUI.MAX_BUTTONS = 5
-SecureUI.BUTTON_WIDTH = 160
-SecureUI.BUTTON_HEIGHT = 28
+SecureUI.BUTTON_WIDTH = 190
+SecureUI.BUTTON_HEIGHT = 30
 SecureUI.BUTTON_SPACING = 4
 
 function SecureUI:Initialize()
@@ -40,8 +40,8 @@ function SecureUI:Initialize()
 
   local anchorTexture = anchor:CreateTexture(nil, "BACKGROUND")
   anchorTexture:SetAllPoints()
-  anchorTexture:SetTexture("Interface\\Buttons\\UI-Quickslot2")
-  anchorTexture:SetVertexColor(0.2, 0.8, 1, 0.6)
+  anchorTexture:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
+  anchorTexture:SetVertexColor(0.4, 0.8, 1, 0.85)
 
   local anchorText = anchor:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
   anchorText:SetPoint("CENTER")
@@ -102,6 +102,8 @@ function SecureUI:Initialize()
   for i = 1, self.MAX_BUTTONS do
     local button = CreateFrame("Button", "SummonSaver_MenuButton" .. i, UIParent, "SecureActionButtonTemplate,SecureHandlerClickTemplate")
     button:SetSize(self.BUTTON_WIDTH, self.BUTTON_HEIGHT)
+    button:EnableMouse(true)
+    button:RegisterForClicks("AnyUp")
 
     if i == 1 then
       button:SetPoint("BOTTOM", anchor, "TOP", 0, self.BUTTON_SPACING)
@@ -109,13 +111,22 @@ function SecureUI:Initialize()
       button:SetPoint("BOTTOM", self.buttons[i - 1], "TOP", 0, self.BUTTON_SPACING)
     end
 
-    button:SetNormalTexture("Interface\\Buttons\\UI-Quickslot2")
+    button:SetNormalTexture("Interface\\Buttons\\UI-Panel-Button-Up")
+    button:SetPushedTexture("Interface\\Buttons\\UI-Panel-Button-Down")
+    button:SetHighlightTexture("Interface\\Buttons\\UI-Panel-Button-Highlight")
+
     local normal = button:GetNormalTexture()
     if normal then
       normal:SetAllPoints()
     end
-
-    button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+    local pushed = button:GetPushedTexture()
+    if pushed then
+      pushed:SetAllPoints()
+    end
+    local highlight = button:GetHighlightTexture()
+    if highlight then
+      highlight:SetAllPoints()
+    end
 
     button.icon = button:CreateTexture(nil, "ARTWORK")
     button.icon:SetSize(22, 22)
@@ -123,7 +134,9 @@ function SecureUI:Initialize()
 
     button.label = button:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     button.label:SetPoint("LEFT", button.icon, "RIGHT", 6, 0)
+    button.label:SetWidth(self.BUTTON_WIDTH - 50)
     button.label:SetJustifyH("LEFT")
+    button.label:SetWordWrap(false)
 
     button.number = button:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     button.number:SetPoint("TOPLEFT", 4, -4)
@@ -165,9 +178,12 @@ function SecureUI:ApplyOrder(orderedDemons)
 
     if spellID then
       local name, _, icon = GetSpellInfo(spellID)
+      local spellToken = name or spellID
       button:SetAttribute("type", "spell")
-      button:SetAttribute("spell", name)
-      button:SetAttribute("enabled", true)
+      button:SetAttribute("spell", spellToken)
+      button:SetAttribute("type1", "spell")
+      button:SetAttribute("spell1", spellToken)
+      button:SetAttribute("enabled", 1)
       button:SetAttribute("closeOnSelect", SummonSaverDB.settings.closeOnSelect and 1 or nil)
 
       button.icon:SetTexture(icon)
@@ -178,8 +194,11 @@ function SecureUI:ApplyOrder(orderedDemons)
         button.number:SetText("")
       end
     else
-      button:SetAttribute("enabled", false)
+      button:SetAttribute("enabled", nil)
       button:SetAttribute("spell", nil)
+      button:SetAttribute("spell1", nil)
+      button:SetAttribute("type", nil)
+      button:SetAttribute("type1", nil)
       button:SetAttribute("closeOnSelect", nil)
       button.icon:SetTexture(nil)
       button.label:SetText("")

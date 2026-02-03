@@ -29,6 +29,7 @@ SummonSaver is a World of Warcraft: The Burning Crusade Classic addon that provi
 
 ### Keybinding
 Find **SummonSaver** in the keybindings menu and bind **Toggle Summon Menu**.
+You can also bind **Summon Menu Slot 1-5** to trigger a specific menu entry.
 
 ## Compatibility
 - Target client: TBC Classic / Anniversary 2.5.x

@@ -2,4 +2,19 @@
   <Binding name="SUMMONSAVER_TOGGLE" header="SUMMONSAVER">
     /click SummonSaver_Toggle
   </Binding>
+  <Binding name="SUMMONSAVER_SLOT1" header="SUMMONSAVER">
+    CLICK SummonSaver_MenuButton1:LeftButton
+  </Binding>
+  <Binding name="SUMMONSAVER_SLOT2" header="SUMMONSAVER">
+    CLICK SummonSaver_MenuButton2:LeftButton
+  </Binding>
+  <Binding name="SUMMONSAVER_SLOT3" header="SUMMONSAVER">
+    CLICK SummonSaver_MenuButton3:LeftButton
+  </Binding>
+  <Binding name="SUMMONSAVER_SLOT4" header="SUMMONSAVER">
+    CLICK SummonSaver_MenuButton4:LeftButton
+  </Binding>
+  <Binding name="SUMMONSAVER_SLOT5" header="SUMMONSAVER">
+    CLICK SummonSaver_MenuButton5:LeftButton
+  </Binding>
 </Bindings>
