@@ -1,0 +1,5 @@
+<Bindings>
+  <Binding name="SUMMONSAVER_TOGGLE" header="SUMMONSAVER">
+    /click SummonSaver_Toggle
+  </Binding>
+</Bindings>

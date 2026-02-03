@@ -1,0 +1,11 @@
+## Interface: 20504, 20505
+## Title: SummonSaver
+## Notes: Summon Demon menu for Warlocks (TBC Classic)
+## Author: Theo
+## Version: 0.1.0
+## SavedVariablesPerCharacter: SummonSaverDB
+
+Core.lua
+SecureUI.lua
+Config.lua
+Bindings.xml
